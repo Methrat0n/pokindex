@@ -20,7 +20,7 @@ class SearchBar extends PureComponent {
         <Column centerOnSmall style={styles.columnSearchBar}>
           <Paper zDepth={4}>
             <TextField fullWidth={true} style={styles.searchBar}
-              onChange={(e) => this.props.change(e)}>
+              onChange={(e) => this.props.search(e)}>
             </TextField>
           </Paper>
         </Column>
@@ -31,10 +31,11 @@ class SearchBar extends PureComponent {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    change: (event) => {
+    search: (event) => {
+      dispatch(resetPokemon);
       const newValue = event.target.value;
       
-      if (newValue.length > 3) {
+      if (newValue.length > 2) {
         const pokemonPromises = pokindex.getPokemonsLike(newValue);
         dispatch(beginSearch);
         pokemonPromises.forEach(pokemonPromise => {
@@ -43,11 +44,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(addPokemon(pokemon));
           });
         });
-        if(pokemonPromises.length <= 0)
+        if(pokemonPromises.length < 1)
           dispatch(endSearch);
-      }
-      else {
-        dispatch(resetPokemon);
       }
     }
   }

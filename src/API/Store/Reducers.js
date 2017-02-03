@@ -15,7 +15,10 @@ const isSearching = (state = false, action) => {
 const pokemons = (state = [], action) => {
   switch (action.type) {
     case "adding_pokemon" :
-      const newState = Object.assign([],state);
+      if(state.includes(action.pokemon)) //If the pokemon is already in the array
+        return state;
+      
+      const newState = Object.assign([],state); //Create a new array, copy the state
       newState.push(action.pokemon);
       return newState;
     case "Reset_Pokemon" :
