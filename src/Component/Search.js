@@ -8,19 +8,12 @@ import SearchBar from './Search/SearchBar';
 
 class Search extends PureComponent {
 
-    constructor() {
-        super();
-        this.state = {
-            results: [],
-        }
-    }
-
-    render() {
-        return (<div>
-            <SearchBar/>
-            <Results pokemons={this.state.results}/>
-        </div>)
-    }
+  render() {
+    return (<div>
+      <SearchBar />
+      <Results />
+    </div>)
+  }
 }
 
 export default Search;

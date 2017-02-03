@@ -3,12 +3,12 @@
  */
 import { createStore, combineReducers } from 'redux';
 
-import {isSearching,pokemons,currentPokemon} from './Reducers';
+import {isSearching,pokemons} from './Reducers';
 
 const reducer = combineReducers({
   isSearching,
   pokemons,
-  currentPokemon
+//  currentPokemon
 });
 
 const store = createStore(reducer);

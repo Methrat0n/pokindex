@@ -1,11 +1,6 @@
 /**
  * Created by merlin on 02/02/17.
  */
-import Pokedex from 'pokedex-promise-v2';
-const pokedex = new Pokedex();
-
-const defaultPokemon = new Promise(resolve => resolve([]))
-
 const isSearching = (state = false, action) => {
   switch (action.type) {
     case "Begin_Search" :
@@ -17,22 +12,17 @@ const isSearching = (state = false, action) => {
   }
 };
 
-const pokemons = (state = defaultPokemon, action) => {
+const pokemons = (state = [], action) => {
   switch (action.type) {
-    case "Searching_Pokemon" :
-      return pokedex.getPokemonByName(action.pokemonName);
+    case "adding_pokemon" :
+      const newState = Object.assign([],state);
+      newState.push(action.pokemon);
+      return newState;
+    case "Reset_Pokemon" :
+      return [];
     default :
       return state;
   }
 };
 
-const currentPokemon = (state = null, action) => {
-  switch (action.type) {
-    case "Find_Pokemon" :
-      return pokedex.getPokemonByName(action.pokemonName);
-    default :
-      return state;
-  }
-};
-
-export {isSearching,pokemons,currentPokemon};
+export {isSearching,pokemons};

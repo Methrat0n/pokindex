@@ -8,9 +8,10 @@ import TextField from 'material-ui/TextField';
 import {Row, Column} from 'react-foundation';
 import Paper from 'material-ui/Paper';
 
-import {beginSearch,endSearch,searchPokemons} from '../../API/Store/Actions';
+import {beginSearch,endSearch,addPokemon,resetPokemon} from '../../API/Store/Actions';
 
 import styles from '../../API/Styling/Styles';
+import pokindex from '../../API/Pokindex';
 
 class SearchBar extends PureComponent {
   render() {
@@ -19,7 +20,7 @@ class SearchBar extends PureComponent {
         <Column centerOnSmall style={styles.columnSearchBar}>
           <Paper zDepth={4}>
             <TextField fullWidth={true} style={styles.searchBar}
-              onChange={(e) => this.props.search(e,this.props.isSearching)}>
+              onChange={(e) => this.props.change(e)}>
             </TextField>
           </Paper>
         </Column>
@@ -28,31 +29,31 @@ class SearchBar extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    isSearching: state.isSearching,
-  }
-};
-
 const mapDispatchToProps = (dispatch) => {
   return {
-      search: (event, isSearching) => {
-          const newValue = event.target.value;
-          
-          if(newValue === "")
+    change: (event) => {
+      const newValue = event.target.value;
+      
+      if (newValue.length > 3) {
+        const pokemonPromises = pokindex.getPokemonsLike(newValue);
+        dispatch(beginSearch);
+        pokemonPromises.forEach(pokemonPromise => {
+          pokemonPromise.then(pokemon => {
             dispatch(endSearch);
-          else {
-            if(!isSearching) {
-              dispatch(beginSearch);
-            }
-            
-            dispatch(searchPokemons(newValue));
-          }
+            dispatch(addPokemon(pokemon));
+          });
+        });
+        if(pokemonPromises.length <= 0)
+          dispatch(endSearch);
       }
+      else {
+        dispatch(resetPokemon);
+      }
+    }
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+export default connect(null, mapDispatchToProps)(SearchBar);
 
 //import FontIcon from 'material-ui/FontIcon';
 //<FontIcon className="material-icons">search</FontIcon>

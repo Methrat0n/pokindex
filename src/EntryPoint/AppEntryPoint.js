@@ -23,7 +23,7 @@ class SearchEntryPoint extends PureComponent {
             <MuiThemeProvider muiTheme={theme}>
                 <div>
                     <AppBar
-                        title={<span style={styles.handCurser}>PokeIndex</span>}
+                        title={<span style={styles.handCurser}>Pokindex</span>}
                         onTitleTouchTap={this.returnToHome}
                         showMenuIconButton={false}
                         iconElementRight={<IconButton><FontIcon

@@ -8,18 +8,15 @@ const endSearch = {
   type: "Ending_Search",
 };
 
-const searchPokemons = (name) => {
+const addPokemon = (pokemon) => {
   return {
-    type: "Searching_Pokemon",
-    pokemonName: name,
+    type: "adding_pokemon",
+    pokemon: pokemon,
   }
 };
 
-const findPokemon = (name) => {
-  return {
-    type: "Find_Pokemon",
-    pokemonName: name,
-  }
+const resetPokemon = {
+  type: "Reset_Pokemon",
 };
 
-export {beginSearch,endSearch,searchPokemons,findPokemon};
+export {beginSearch,endSearch,addPokemon,resetPokemon};

@@ -7,37 +7,15 @@ import {connect} from 'react-redux';
 import {Row, Column} from 'react-foundation';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
 import RefreshIndicator from 'material-ui/RefreshIndicator';
-import { browserHistory} from 'react-router'
+import { browserHistory} from 'react-router';
+
+import PockeFont from '../Utils/PockeFont';
 
 import styles from '../../API/Styling/Styles';
 
-import {endSearch} from '../../API/Store/Actions';
-
 class Result extends PureComponent {
   
-  constructor(props) {
-    super(props);
-    this.state= {
-      pokemons: [],
-    };
-  }
-  
-  _pokemonsToState = () => {
-    if(this.props.isSearching) {
-      this.props.pokemons.then(findPokemon => {
-        this.setState({pokemons: [findPokemon]});
-        this.props.stopSearch();
-      }).catch(error => {
-        this.props.stopSearch();
-        this.setState({pokemons: []});
-      });
-    }
-  };
-  
   render() {
-    
-    this._pokemonsToState();
-    
     const spinningWell = (
       <div style={styles.loadingContainer}>
         <RefreshIndicator
@@ -50,17 +28,21 @@ class Result extends PureComponent {
     </div>
     );
     
-    const pokemons = (
+    const pokemonsRender = (
       <Row upOnLarge={3} upOnMedium={2} upOnSmall={1}>
-        {this.state.pokemons.map((pokemon, id) =>
+        {this.props.pokemons.map((pokemon, id) =>
           <Column key={id} style={styles.column}>
-            <Card style={styles.handCurser} onClick={() => browserHistory.push("/pokemon/"+pokemon.name)}>
+            <Card style={styles.handCurser}
+                  onClick={() => browserHistory.push("/pokemon/"+pokemon.name)}>
               <CardMedia
-                overlay={<CardTitle title={pokemon.name}
-                subtitle={"types : "+pokemon.types.map(type =>
-                  type.type.name+" ")} />}
+                overlay={
+                  <CardTitle title={pokemon.name}
+                  subtitle={"types : "+pokemon.types.map(type =>
+                  type.type.name+" ")}
+                  />
+                }
               >
-                <img src={pokemon.sprites.front_default} alt="placeholder"/>
+                <PockeFont font={pokemon.sprites.front_default} />
               </CardMedia>
             </Card>
           </Column>
@@ -71,7 +53,7 @@ class Result extends PureComponent {
     return (
       <div>
         {this.props.isSearching ?
-          spinningWell : pokemons
+          spinningWell : pokemonsRender
         }
       </div>
     )
@@ -79,18 +61,10 @@ class Result extends PureComponent {
 }
 
 const mapStateToProps = (state) => {
-    return {
-        isSearching: state.isSearching,
-        pokemons: state.pokemons,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
   return {
-    stopSearch: () => {
-      dispatch(endSearch)
-    }
+    isSearching: state.isSearching,
+    pokemons: state.pokemons,
   }
 };
 
-export default connect(mapStateToProps,mapDispatchToProps)(Result);
+export default connect(mapStateToProps)(Result);

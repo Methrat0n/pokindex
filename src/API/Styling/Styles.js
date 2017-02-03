@@ -5,6 +5,9 @@ const styles = {
   handCurser: {
     cursor:'pointer',
   },
+  imageSize: {
+    height: '50vh',
+  },
   iconTitleBar: {
     marginRight: 24,
   },

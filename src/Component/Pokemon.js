@@ -3,7 +3,9 @@
  */
 import React, { PureComponent } from 'react';
 import {connect} from 'react-redux';
-import Pokedex from 'pokedex-promise-v2';
+
+import pokindex from '../API/Pokindex';
+import PockeFont from './Utils/PockeFont';
 
 class Pokemon extends PureComponent {
 
@@ -12,17 +14,24 @@ class Pokemon extends PureComponent {
     this.state = {
       pokemon: null,
     };
-    const pokedex = new Pokedex();
-    pokedex.getPokemonByName(props.params.name)
-      .then(pokemon => this.setState({pokemon: pokemon}));
+  }
+  
+  componentWillMount() {
+    pokindex.getPokemon(this.props.params.name)
+      .then(pokemon => this.setState({pokemon: pokemon}))
+      .catch(error => console.log("Pokemon: "+this.props.params.name
+        +" not found"));
   }
   
   render() {
-    if()
+    const pokemon = this.state.pokemon;
+    //Handling the first render, TODO, make it better
+    if(pokemon == null)
+      return (<div></div>);
     
     return (
       <div>
-        <img src={this.state.pokemon.sprites.front_default} alt="placeholder"/>
+        <PockeFont font={pokemon.sprites.front_default} />
       </div>
     )
   }
