@@ -1,0 +1,17 @@
+version: '2'
+services:
+  db:
+    image: postgres
+
+  pokeapi:
+    build: pokeapi
+    ports:
+      - 8000:8000
+
+  node:
+    build: pokindex
+    volumes:
+      - ./pokindex/:/home/pokindex/
+    depends_on:
+      - db
+      - pokeapi
