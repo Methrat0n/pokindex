@@ -19,4 +19,12 @@ const resetPokemon = {
   type: "Reset_Pokemon",
 };
 
-export {beginSearch,endSearch,addPokemon,resetPokemon};
+const saveStat = (value, statName) => {
+  return {
+    type: "Saving_Stat",
+    value: value,
+    statName: statName,
+  }
+};
+
+export {beginSearch,endSearch,addPokemon,resetPokemon,saveStat};

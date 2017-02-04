@@ -76,10 +76,10 @@ class Pokemon extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     max: (statName) => {
-      return state.max(statName);
+      return state.stat[statName].max;
     },
     min: (statName) => {
-      return state.min(statName);
+      return state.stat[statName].min;
     },
   }
 };
