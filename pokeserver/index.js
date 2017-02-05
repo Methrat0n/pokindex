@@ -1,5 +1,5 @@
 var express = require('express');
-var stats   = require('./Stats');
+var sendStat   = require('./Stats');
 var app = express();
 
 var Twitter = require('twitter');
@@ -12,7 +12,7 @@ var client = new Twitter({
 });
 
 app.get('/stats/', function (req, res) {
-  res.json(stats);
+  sendStat(res);
 });
 
 app.get('/tweet/:namePokemon', function (req, res) {
@@ -21,6 +21,6 @@ app.get('/tweet/:namePokemon', function (req, res) {
   });
 });
 
-app.listen(3010, function () {
-  console.log('Back listening on port 3010')
+app.listen(3001, function () {
+  console.log('Back listening on port 3001')
 });
