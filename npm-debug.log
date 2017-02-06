@@ -1,19 +1,45 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'start' ]
+1 verbose cli [ '/usr/bin/nodejs', '/usr/bin/npm', 'run', 'server' ]
 2 info using npm@4.0.5
 3 info using node@v7.4.0
-4 verbose stack Error: ENOENT: no such file or directory, open '/home/merlin/dev/pokeIndex/package.json'
-5 verbose cwd /home/merlin/dev/pokeIndex
-6 error Linux 4.4.0-21-generic
-7 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
-8 error node v7.4.0
-9 error npm  v4.0.5
-10 error path /home/merlin/dev/pokeIndex/package.json
-11 error code ENOENT
-12 error errno -2
-13 error syscall open
-14 error enoent ENOENT: no such file or directory, open '/home/merlin/dev/pokeIndex/package.json'
-15 error enoent ENOENT: no such file or directory, open '/home/merlin/dev/pokeIndex/package.json'
-15 error enoent This is most likely not a problem with npm itself
-15 error enoent and is related to npm not being able to find a file.
-16 verbose exit [ -2, true ]
+4 verbose run-script [ 'preserver', 'server', 'postserver' ]
+5 info lifecycle pokeserver@1.0.0~preserver: pokeserver@1.0.0
+6 silly lifecycle pokeserver@1.0.0~preserver: no script for preserver, continuing
+7 info lifecycle pokeserver@1.0.0~server: pokeserver@1.0.0
+8 verbose lifecycle pokeserver@1.0.0~server: unsafe-perm in lifecycle true
+9 verbose lifecycle pokeserver@1.0.0~server: PATH: /usr/lib/node_modules/npm/bin/node-gyp-bin:/home/merlin/dev/pokeIndex/node_modules/.bin:/usr/lib/node_modules/npm/bin/node-gyp-bin:/home/merlin/dev/pokeIndex/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+10 verbose lifecycle pokeserver@1.0.0~server: CWD: /home/merlin/dev/pokeIndex
+11 silly lifecycle pokeserver@1.0.0~server: Args: [ '-c', 'node index.js' ]
+12 silly lifecycle pokeserver@1.0.0~server: Returned: code: 1  signal: null
+13 info lifecycle pokeserver@1.0.0~server: Failed to exec server script
+14 verbose stack Error: pokeserver@1.0.0 server: `node index.js`
+14 verbose stack Exit status 1
+14 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:279:16)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at emitTwo (events.js:106:13)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:885:16)
+14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
+15 verbose pkgid pokeserver@1.0.0
+16 verbose cwd /home/merlin/dev/pokeIndex
+17 error Linux 4.4.0-21-generic
+18 error argv "/usr/bin/nodejs" "/usr/bin/npm" "run" "server"
+19 error node v7.4.0
+20 error npm  v4.0.5
+21 error code ELIFECYCLE
+22 error pokeserver@1.0.0 server: `node index.js`
+22 error Exit status 1
+23 error Failed at the pokeserver@1.0.0 server script 'node index.js'.
+23 error Make sure you have the latest version of node.js and npm installed.
+23 error If you do, this is most likely a problem with the pokeserver package,
+23 error not with npm itself.
+23 error Tell the author that this fails on your system:
+23 error     node index.js
+23 error You can get information on how to open an issue for this project with:
+23 error     npm bugs pokeserver
+23 error Or if that isn't available, you can get their info via:
+23 error     npm owner ls pokeserver
+23 error There is likely additional logging output above.
+24 verbose exit [ 1, true ]

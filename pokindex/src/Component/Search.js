@@ -3,8 +3,6 @@
  */
 import React, { PureComponent } from 'react';
 
-
-
 import Results from './Search/Result';
 import SearchBar from './Search/SearchBar';
 

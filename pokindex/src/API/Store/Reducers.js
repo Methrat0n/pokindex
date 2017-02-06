@@ -12,10 +12,19 @@ const isSearching = (state = false, action) => {
   }
 };
 
+//Tell if an array already contains a Pokemon
+const isInPokemonsArray = (array, pokemon) => {
+  for(const elementPokemon of array)
+    if(elementPokemon.name === pokemon.name)
+      return true;
+  
+  return false;
+};
+
 const pokemons = (state = [], action) => {
   switch (action.type) {
     case "adding_pokemon" :
-      if(state.includes(action.pokemon)) //If the pokemon is already in the array
+      if(isInPokemonsArray(state,action.pokemon)) //If the Pokemon is already in the array
         return state;
       
       const newState = Object.assign([],state); //Create a new array, copy the state

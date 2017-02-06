@@ -1,9 +1,14 @@
 /**
  * Created by merlin on 02/02/17.
  */
+import {red600} from 'material-ui/styles/colors';
+
 const styles = {
   handCurser: {
     cursor:'pointer',
+  },
+  pokemonName: {
+    color: red600,
   },
   imageSize: {
     height: '50vh',
@@ -35,6 +40,10 @@ const styles = {
     width: 120,
     height: 120,
     padding: 30,
+  },
+  iconButton: {
+    padding: 30,
+    fill: red600,
   },
 };
 

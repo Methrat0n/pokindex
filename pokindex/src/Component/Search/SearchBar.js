@@ -29,6 +29,10 @@ class SearchBar extends PureComponent {
   }
 }
 
+SearchBar.propTypes = {
+  search: React.PropTypes.func.isRequired,
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     search: (event) => {
@@ -52,6 +56,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(null, mapDispatchToProps)(SearchBar);
-
-//import FontIcon from 'material-ui/FontIcon';
-//<FontIcon className="material-icons">search</FontIcon>

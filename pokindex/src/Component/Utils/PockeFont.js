@@ -16,4 +16,8 @@ class PockeFont extends PureComponent {
   }
 }
 
+PockeFont.propTypes = {
+  font: React.PropTypes.string,
+};
+
 export default PockeFont;

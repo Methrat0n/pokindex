@@ -6,19 +6,12 @@ import Pokedex from 'pokedex-promise-v2';
 class Pokindex {
 
   constructor() {
-    const options = {
-      hostName: 'localhost:8000',
-    };
-    this.pokedex = new Pokedex(options);
+    this.pokedex = new Pokedex();
     this.pokemonNames = [];
     this.pokedex.getPokemonsList().then(pokemons => {
       pokemons.results.forEach(pokemon => {
         this.pokemonNames.push(pokemon.name);
       });
-    }).then(() => {
-      //Launch the stat request in another thread
-      const worker = Worker("./saveStat.js");
-      worker.postMessage(this.pokemonNames);
     });
   }
   
@@ -37,8 +30,6 @@ class Pokindex {
     const pokemonPromise = this.pokedex.getPokemonByName(name);
     return pokemonPromise;
   };
-  
-  
 }
 const pokindex = new Pokindex();
 export default pokindex;

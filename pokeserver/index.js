@@ -1,25 +1,17 @@
-var express = require('express');
-var sendStat   = require('./Stats');
-var app = express();
+const express = require('express');
+var bodyParser = require('body-parser')
+const sendStat = require('./Stats');
+const sendTweet = require('./Tweet');
+const {sendLikes, retrieveLikes} = require('./Likes');
+const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
-var Twitter = require('twitter');
+app.get('/stats/',sendStat);
+app.get('/tweet/:namePokemon/:nbTweet', sendTweet);
+app.get('/like/:pokemonName', sendLikes);
 
-var client = new Twitter({
-  consumer_key: 'rtDA8UyAcsDi36V1qOAgY9J1g',
-  consumer_secret: 'ElcKpe0LGnKgleYytjgxfi7z9wkzZt2mz7K5ono2ShlDGhFCjZ',
-  access_token_key: '952174592-ePP2SMvOa7RMG1igNgGIbyutZBxM9uoms8zvzAwN',
-  access_token_secret: 'euLl4jxrLre7lA6srB9roiT6hJgQFlxTsVLsFh5U9YDvd',
-});
-
-app.get('/stats/', function (req, res) {
-  sendStat(res);
-});
-
-app.get('/tweet/:namePokemon', function (req, res) {
-  client.get('search/tweets', {q: req.params.namePokemon}, function(error, tweets, response) {
-    res.json(tweets);
-  });
-});
+app.post('/like/:pokemonName/',retrieveLikes);
 
 app.listen(3001, function () {
   console.log('Back listening on port 3001')

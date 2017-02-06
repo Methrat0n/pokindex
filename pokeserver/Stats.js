@@ -6,7 +6,7 @@ const fs = require('fs');
 const sleep = require('sleep');
 
 //Will launch respond to a request
-const sendStat = function (res) {
+const sendStat = function (req,res) {
   let stats = {};
   let pokemon_stats = [];
   let stat_names = [];
@@ -47,7 +47,7 @@ const sendStat = function (res) {
       .on('data', function (stat_name) {
         for(let index = 0; index < pokemon_stats.length; index++) {
           const pokemon = pokemon_stats[index];
-          if (stat_name.stat_id == pokemon.stat_id && stat_names.indexOf(stat_name) < 0) {//Join only stat that a pokemon has
+          if (stat_name.stat_id == pokemon.stat_id && stat_names.indexOf(stat_name) < 0) {//Join only stat that a Pokemon has
             stat_names.push(stat_name);
           }
         }

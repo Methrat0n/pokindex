@@ -6,27 +6,16 @@ import {connect} from 'react-redux';
 
 import {Row, Column} from 'react-foundation';
 import {Card, CardMedia, CardTitle} from 'material-ui/Card';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
 import { browserHistory} from 'react-router';
 
 import PockeFont from '../Utils/PockeFont';
+import Loading from '../Utils/Loading';
 
 import styles from '../../API/Styling/Styles';
 
 class Result extends PureComponent {
   
   render() {
-    const spinningWell = (
-      <div style={styles.loadingContainer}>
-        <RefreshIndicator
-          size={100}
-          left={-50}
-          top={0}
-          status="loading"
-          style={styles.loading}
-        />
-    </div>
-    );
     
     const pokemonsRender = (
       <Row upOnLarge={3} upOnMedium={2} upOnSmall={1}>
@@ -53,12 +42,17 @@ class Result extends PureComponent {
     return (
       <div>
         {this.props.isSearching ?
-          spinningWell : pokemonsRender
+          <Loading /> : pokemonsRender
         }
       </div>
     )
   }
 }
+
+Result.propTypes = {
+  isSearching: React.PropTypes.bool.isRequired,
+  pokemons: React.PropTypes.array.isRequired,
+};
 
 const mapStateToProps = (state) => {
   return {
