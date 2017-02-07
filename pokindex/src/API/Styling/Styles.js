@@ -1,11 +1,19 @@
 /**
  * Created by merlin on 02/02/17.
  */
-import {red600} from 'material-ui/styles/colors';
+import {red600, red400, red50} from 'material-ui/styles/colors';
 
 const styles = {
   handCurser: {
     cursor:'pointer',
+  },
+  bookmarkTitle: {
+    marginTop: 10,
+    textAlign: 'center',
+    color: red50
+  },
+  sideBar: {
+    backgroundColor:red400,
   },
   pokemonName: {
     color: red600,

@@ -33,6 +33,29 @@ class Server {
     });
   }
   
+  getBookmark(pokemonName) {
+    return fetch('/bookmark/'+pokemonName, {accept: 'application/json'})
+      .then(this._checkStatus)
+      .then(this._parseJSON);
+  }
+  
+  getBookmarks() {
+    return fetch('/bookmarks/', {accept: 'application/json'})
+      .then(this._checkStatus)
+      .then(this._parseJSON);
+  }
+  
+  setBookmark(pokemonName, bookmark) {
+    fetch('/bookmark/'+pokemonName, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(bookmark),
+    });
+  }
+  
   _checkStatus = (response) => {
   if (response.status >= 200 && response.status < 300) {
       return response;

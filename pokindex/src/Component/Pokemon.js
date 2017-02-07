@@ -30,6 +30,14 @@ class Pokemon extends PureComponent {
     });
   };
   
+  //Needed so a change in the router relaunch the page
+  componentWillReceiveProps(nextProps) {
+    this.setState({pokemon: null});
+    pokindex.getPokemon(nextProps.params.name).then(pokemon => {
+      this.setState({pokemon: pokemon});
+    });
+  }
+  
   render() {
     const pokemon = this.state.pokemon;
     
@@ -56,7 +64,7 @@ class Pokemon extends PureComponent {
                       <PockeFont font={pokemon.sprites.front_default} />
                     </Column>
                   </Row>
-                  <SocialButton pokemonName={this.state.pokemon.name} />
+                  <SocialButton pokemon={this.state.pokemon} />
                 </Column>
                 <Column small={12} medium={4}>
                   <Caracteristics pokemonStats={this.state.pokemon.stats}/>

@@ -25,26 +25,26 @@ class Tweets extends PureComponent {
   }
   
   render() {
-    return (
-    <Card style={styles.columnSearchBar}>
-      <CardHeader
-        title={<h5 style={styles.pokemonName}>{"About "+this.props.pokemonName}</h5>}
-        actAsExpander={false}
-        showExpandableButton={false}
-      />
-      <CardText>
-        <List>
-          <ListItem disabled>
-            {this.state.tweets == null ?
-              <Loading /> :
-              this.state.tweets.statuses.map((tweet,id) =>
-                <Tweet key={id} data={tweet} />)
-            }
-          </ListItem>
-        </List>
-      </CardText>
-    </Card>
-    )
+    
+    return this.state.tweets == null ?
+      <Loading /> :
+      <Card style={styles.columnSearchBar}>
+        <CardHeader
+          title={<h5
+            style={styles.pokemonName}>{"About " + this.props.pokemonName}</h5>}
+          actAsExpander={false}
+          showExpandableButton={false}
+        />
+        <CardText>
+          <List>
+            <ListItem disabled>
+              {this.state.tweets.statuses.map((tweet, id) =>
+                <Tweet key={id} data={tweet}/>)
+              }
+            </ListItem>
+          </List>
+        </CardText>
+      </Card>
   }
 }
 

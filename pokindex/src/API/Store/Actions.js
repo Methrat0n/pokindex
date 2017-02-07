@@ -27,4 +27,44 @@ const saveStat = (value, statName) => {
   }
 };
 
-export {beginSearch,endSearch,addPokemon,resetPokemon,saveStat};
+const closeEventBar = {
+  type: "Closing_Event_Bar",
+};
+
+const openEventBar = {
+  type: "Opening_Event_Bar",
+};
+
+const changeEventBarMessage = (message) => {
+  return {
+    type: "Changing_Event_Bar_Message",
+    msg: message,
+  }
+};
+
+const closeBookmarkBar = {
+  type: "Closing_Bookmark_Bar",
+};
+
+const openBookmarkBar = {
+  type: "Opening_Bookmark_Bar",
+};
+
+const addPokemonToBookmark = (pokemon) => {
+  return {
+    type: "Adding_Pokemon_To_Bookmark",
+    pokemon: pokemon,
+  }
+};
+
+const removePokemonFromBookmark = (pokemon) => {
+  return {
+    type: "Removing_Pokemon_From_Bookmark",
+    pokemon: pokemon,
+  }
+};
+
+export {beginSearch,endSearch,addPokemon,resetPokemon,saveStat,
+  closeEventBar, openEventBar,changeEventBarMessage,
+  closeBookmarkBar,openBookmarkBar,
+  addPokemonToBookmark,removePokemonFromBookmark};

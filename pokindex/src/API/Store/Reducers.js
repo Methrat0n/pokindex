@@ -37,34 +37,53 @@ const pokemons = (state = [], action) => {
   }
 };
 
-const stats = (state = [], action) => {
+const isEventBarOpen = (state = false, action) => {
   switch (action.type) {
-    case "Saving_Stat" :
-      const newState = Object.assign([],state); //Create a new array, copy the state
-      let currentStat = {
-        min: 10000000,
-        max: 0,
-        total: 0,
-        nbInfo: 0,
-      };
-      //If the state already contains an object for this stat
-      if(typeof newState[action.statName] !== 'undefined')
-        currentStat = newState[action.statName];
-      
-      if(currentStat.min > action.value)
-        currentStat.min = action.value;
-      
-      if(currentStat.max < action.value)
-        currentStat.max = action.value;
-      
-      currentStat.total+= action.value;
-      currentStat.nbInfo++;
-  
-      newState[action.statName] = currentStat;
-      return newState;
+    case "Closing_Event_Bar" :
+      return false;
+    case "Opening_Event_Bar" :
+      return true;
     default :
       return state;
   }
 };
 
-export {isSearching,pokemons,stats};
+const eventBarMessage = (state = "", action) => {
+  switch (action.type) {
+    case "Changing_Event_Bar_Message" :
+      return action.msg;
+    default :
+      return state;
+  }
+};
+
+const isBookmarkBarOpen = (state = false, action) => {
+  switch (action.type) {
+    case "Closing_Bookmark_Bar":
+      return false;
+    case "Opening_Bookmark_Bar":
+      return true;
+    default:
+      return state;
+  }
+};
+
+const pokemonBookmarked = (state = [], action) => {
+  switch (action.type) {
+    case "Adding_Pokemon_To_Bookmark":
+      return Object.assign([],[...state,action.pokemon]);
+    case "Removing_Pokemon_From_Bookmark":
+      const newState = [];
+      for(let pokemon of state) {
+        if (pokemon.name !== action.pokemon.name)
+          newState.push(pokemon);
+      }
+      return newState;
+    default:
+      return state;
+  }
+};
+
+export {isSearching,pokemons,
+  isEventBarOpen,eventBarMessage,
+  isBookmarkBarOpen,pokemonBookmarked};
