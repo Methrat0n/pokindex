@@ -1,17 +1,34 @@
 version: '2'
 services:
   db:
-    image: postgres
+    build: Database
+    environment:
+      - POSTGRES_USER="pokindex"
+      - POSTGRES_PASSWORD="pokindex"
+      - PGDATA="/var/lib/postgresql/data"
+      - POSTGRES_INITDB_ARGS="--data-checksums"
 
-  pokeapi:
-    build: pokeapi
+  grafana:
+    image: kamon/grafana_graphite
     ports:
-      - 8000:8000
+      - 8000:80
+      - 8100:81
+      - 8125:8125/udp
+      - 8126:8126
 
-  node:
-    build: pokindex
+  back:
+    build: pokeserver
     volumes:
-      - ./pokindex/:/home/pokindex/
+      - ./pokeserver/App/:/home/pokeserver/
     depends_on:
       - db
-      - pokeapi
+
+  front:
+    build: pokindex
+    volumes:
+      - ./pokindex/App/:/home/pokindex/
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+      - back

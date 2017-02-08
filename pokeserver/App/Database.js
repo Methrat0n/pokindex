@@ -1,0 +1,38 @@
+/**
+ * Created by merlin on 07/02/17.
+ */
+const Sequelize = require('sequelize');
+const sequelize = new Sequelize('database', 'username', 'password');
+
+const Users = sequelize.define('Users', {
+  id_users : {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  login : {type: Sequelize.STRING,allowNull: false},
+  password: {type: Sequelize.STRING, allowNull: false}
+});
+
+const Bookmarks = sequelize.define('Bookmarks', {
+  id_bookmarks: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  pokemon_name: {type: Sequelize.STRING,allowNull: false},
+  id_users: {type: Sequelize.INTEGER, references: {
+    model: Users,
+    key: 'id_users',
+    deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+  }},
+});
+
+const Likes = sequelize.define('Likes', {
+  id_likes: {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
+  do_like: {type: Sequelize.BOOLEAN,allowNull: false},
+  do_dislike: {type: Sequelize.BOOLEAN,allowNull: false},
+  pokemon_name: {type: Sequelize.STRING,allowNull: false},
+  id_users: {type: Sequelize.INTEGER, references: {
+    model: Users,
+    key: 'id_users',
+    deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+  }},
+});
+
+//Create the tables if they dont exists
+sequelize.sync();
+
+module.exports = {Users, Bookmarks, Likes};

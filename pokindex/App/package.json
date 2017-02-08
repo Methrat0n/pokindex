@@ -1,0 +1,30 @@
+{
+  "name": "pokeIndex",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://back:3000/",
+  "devDependencies": {
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "material-design-icons": "^3.0.1",
+    "material-ui": "^0.16.7",
+    "pokedex-promise-v2": "^3.0.3",
+    "pokemon-sprites": "github:pokeapi/sprites",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-foundation": "^0.7.0",
+    "react-redux": "^5.0.2",
+    "react-router": "^3.0.2",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-tweet": "^1.0.22",
+    "redux": "^3.6.0",
+    "twitter": "^1.7.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
