@@ -2,7 +2,11 @@
  * Created by merlin on 07/02/17.
  */
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('database', 'username', 'password');
+const sequelize = new Sequelize('pokindex', 'pokindexrw', 'pokindex',{
+  host: "db",
+  port: 5432,
+  dialect: 'postgres',
+});
 
 const Users = sequelize.define('Users', {
   id_users : {type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true},
@@ -31,6 +35,8 @@ const Likes = sequelize.define('Likes', {
     deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
   }},
 });
+
+Users.create({id_users: 0, login: 'merlin', password: 'yolo'});
 
 //Create the tables if they dont exists
 sequelize.sync();

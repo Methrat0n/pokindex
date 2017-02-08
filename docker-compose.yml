@@ -3,9 +3,6 @@ services:
   db:
     build: Database
     environment:
-      - POSTGRES_USER="pokindex"
-      - POSTGRES_PASSWORD="pokindex"
-      - PGDATA="/var/lib/postgresql/data"
       - POSTGRES_INITDB_ARGS="--data-checksums"
 
   grafana:

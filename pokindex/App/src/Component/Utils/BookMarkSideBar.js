@@ -19,7 +19,7 @@ class BookMarkSideBar extends PureComponent {
   
   componentWillMount() {
     server.getBookmarks().then(bookmarks => {
-      Object.keys(bookmarks).forEach(pokemonName => {
+      bookmarks.forEach(pokemonName => {
         pokindex.getPokemon(pokemonName).then(pokemon => {
           this.props.addPokemonToBookmark(pokemon);
         });
