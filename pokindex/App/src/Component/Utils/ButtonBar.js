@@ -17,8 +17,7 @@ class ButtonBar extends PureComponent {
   render() {
     return (
       <div>
-        <FlatButton onClick={() => {this.props.openConnection}
-        }>
+        <FlatButton onClick={this.props.openConnection}>
           <h4 style={styles.logButton}>{this.props.isConnected ? "Log Out" : "Log In"}</h4>
         </FlatButton>
         <IconButton onClick={this.props.openSideBar}><FontIcon

@@ -84,4 +84,4 @@ export {beginSearch,endSearch,addPokemon,resetPokemon,saveStat,
   closeEventBar, openEventBar,changeEventBarMessage,
   closeBookmarkBar,openBookmarkBar,
   addPokemonToBookmark,removePokemonFromBookmark,
-  disconnection, connection};
+  disconnection, connection,openConnection,closeConnection};
