@@ -84,6 +84,29 @@ const pokemonBookmarked = (state = [], action) => {
   }
 };
 
+const isConnected = (state = false, action) => {
+  switch (action.type) {
+    case "Connecting":
+      return true;
+    case "Disconnecting":
+      return false;
+    default:
+      return state;
+  }
+};
+
+const isConnectionOpen = (state = false, action) => {
+  switch (action.type) {
+    case "openning_connection_modal":
+      return true;
+    case "closing_connection_modal":
+      return false;
+    default:
+      return state;
+  }
+}
+
 export {isSearching,pokemons,
   isEventBarOpen,eventBarMessage,
-  isBookmarkBarOpen,pokemonBookmarked};
+  isBookmarkBarOpen,pokemonBookmarked,
+  isConnected, isConnectionOpen};

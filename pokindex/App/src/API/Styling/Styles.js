@@ -12,6 +12,9 @@ const styles = {
     textAlign: 'center',
     color: red50
   },
+  logButton: {
+    color: red50,
+  },
   sideBar: {
     backgroundColor:red400,
   },

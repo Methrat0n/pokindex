@@ -64,7 +64,24 @@ const removePokemonFromBookmark = (pokemon) => {
   }
 };
 
+const connection = {
+  type: "Connecting"
+};
+
+const disconnection = {
+  type: "Disconnecting"
+};
+
+const openConnection = {
+  type: "openning_connection_modal",
+};
+
+const closeConnection = {
+  type: "closing_connection_modal",
+};
+
 export {beginSearch,endSearch,addPokemon,resetPokemon,saveStat,
   closeEventBar, openEventBar,changeEventBarMessage,
   closeBookmarkBar,openBookmarkBar,
-  addPokemonToBookmark,removePokemonFromBookmark};
+  addPokemonToBookmark,removePokemonFromBookmark,
+  disconnection, connection};
