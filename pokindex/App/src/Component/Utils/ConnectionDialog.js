@@ -10,7 +10,7 @@ import SocialButton from 'react-social-button';
 import {Row, Column} from 'react-foundation';
 
 import {connection,closeConnection} from '../../API/Store/Actions';
-//import styles from '../../API/Styling/Styles';
+import styles from '../../API/Styling/Styles';
 
 const sociales = ['twitter','dropbox','facebook','github','google','linkedin','openid','reddit','twitter'];
 
@@ -21,13 +21,12 @@ class ConnectionDialog extends PureComponent {
         <Dialog
           title={this.props.title}
           modal={false}
-          actions={sociales.map((social,id) =>
-              <SocialButton social={social} key={id}/>
-          )}
           open={this.props.open}
           onRequestClose={this.props.close}
         >
-          bouboubidou
+          {sociales.map((social,id) =>
+            <SocialButton social={social} key={id} style={styles.socialButton} />
+          )}
         </Dialog>
     )
   }
