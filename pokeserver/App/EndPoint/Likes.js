@@ -45,7 +45,7 @@ const retrieveLikes = function (req, rep) {
           do_like: like,
           do_dislike: dislike,
           pokemon_name: pokemonName,
-          id_users: idUser
+          id_users: userId
         });
       
       else {

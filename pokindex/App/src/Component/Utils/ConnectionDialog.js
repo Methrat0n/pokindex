@@ -12,8 +12,8 @@ import SignOutDialog from './Sign/SignOutDialog';
 
 import server from '../../API/Server';
 
-const socials = ['twitter','dropbox','facebook','github',
-  'google','linkedin','openid','reddit','twitter'];
+const socials = [];/*'twitter','dropbox','facebook','github',
+  'google','linkedin','openid','reddit','twitter'];*/
 
 class ConnectionDialog extends PureComponent {
   

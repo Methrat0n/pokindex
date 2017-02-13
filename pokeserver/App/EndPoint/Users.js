@@ -8,8 +8,12 @@ const signIn = (req, res) => {
   const password = req.body.password;
   
   Users.findOne({ where: {login: login, password: password}})
-  .then(user => res.json(user))
-  .catch(err => res.json(err))
+  .then(user => {
+    res.json(user);
+  })
+  .catch(err => {
+    res.json(err);
+  })
 };
 
 const signUp = (req, res) => {
