@@ -37,8 +37,6 @@ const Likes = sequelize.define('Likes', {
 });
 
 //Create the tables if they dont exists
-sequelize.sync().then(function() {
-  Users.create({id_users: 0, login: 'merlin', password: 'yolo'});
-});
+sequelize.sync();
 
 module.exports = {Users, Bookmarks, Likes};

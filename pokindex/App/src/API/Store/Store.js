@@ -6,7 +6,7 @@ import { createStore, combineReducers } from 'redux';
 import {isSearching,pokemons,
   isEventBarOpen,eventBarMessage,
   isBookmarkBarOpen,pokemonBookmarked,
-  isConnected, isConnectionOpen} from './Reducers';
+  isConnected, isConnectionOpen,isDisconnectionOpen,user} from './Reducers';
 
 const reducer = combineReducers({
   isSearching,
@@ -16,7 +16,9 @@ const reducer = combineReducers({
   isBookmarkBarOpen,
   pokemonBookmarked,
   isConnected,
-  isConnectionOpen
+  isConnectionOpen,
+  isDisconnectionOpen,
+  user,
 });
 
 const store = createStore(reducer);

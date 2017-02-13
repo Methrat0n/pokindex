@@ -97,16 +97,38 @@ const isConnected = (state = false, action) => {
 
 const isConnectionOpen = (state = false, action) => {
   switch (action.type) {
-    case "openning_connection_modal":
+    case "Openning_Connection_Modal":
       return true;
-    case "closing_connection_modal":
+    case "Closing_Connection_Modal":
       return false;
     default:
       return state;
   }
-}
+};
+
+const isDisconnectionOpen = (state = false, action) => {
+  switch (action.type) {
+    case "Openning_Disconnection":
+      return true;
+    case "Closing_Disconnection":
+      return false;
+    default:
+      return state;
+  }
+};
+
+const user = (state = null, action) => {
+  switch (action.type) {
+    case "Connecting":
+      return action.user;
+    case "Disconnecting":
+      return null;
+    default:
+      return state;
+  }
+};
 
 export {isSearching,pokemons,
   isEventBarOpen,eventBarMessage,
   isBookmarkBarOpen,pokemonBookmarked,
-  isConnected, isConnectionOpen};
+  isConnected, isConnectionOpen, isDisconnectionOpen, user};

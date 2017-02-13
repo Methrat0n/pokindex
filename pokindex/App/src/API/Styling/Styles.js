@@ -7,9 +7,6 @@ const styles = {
   handCurser: {
     cursor:'pointer',
   },
-  socialButton: {
-    
-  },
   bookmarkTitle: {
     marginTop: 10,
     textAlign: 'center',

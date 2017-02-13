@@ -2,50 +2,84 @@
  * Created by merlin on 09/02/17.
  */
 import React, { PureComponent } from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 
-import Dialog from 'material-ui/Dialog';
-//import RaisedButton from 'material-ui/RaisedButton';
-import SocialButton from 'react-social-button';
-import {Row, Column} from 'react-foundation';
+import {connection,closeConnection,
+  closeDisconnection,disconnection} from '../../API/Store/Actions';
+import SignInDialog from './Sign/SignInDialog';
+import SignOutDialog from './Sign/SignOutDialog';
 
-import {connection,closeConnection} from '../../API/Store/Actions';
-import styles from '../../API/Styling/Styles';
+import server from '../../API/Server';
 
-const sociales = ['twitter','dropbox','facebook','github','google','linkedin','openid','reddit','twitter'];
+const socials = ['twitter','dropbox','facebook','github',
+  'google','linkedin','openid','reddit','twitter'];
 
 class ConnectionDialog extends PureComponent {
   
+  signUp = (logs) => {
+    //create user
+    server.signUp(logs).then(user => {
+      this.props.connection(user);
+    }).catch(err => {
+      console.log(err);
+    })
+  };
+  
+  signIn = (logs) => {
+    server.signIn(logs).then(user => {
+      this.props.connection(user);
+    }).catch(err => {
+      console.log(err);
+    })
+  };
+  
+  disconnect = () => {
+    this.props.disconnect();
+    this.props.closeDisconnectionModal();
+  };
+  
   render() {
     return (
-        <Dialog
-          title={this.props.title}
-          modal={false}
-          open={this.props.open}
-          onRequestClose={this.props.close}
-        >
-          {sociales.map((social,id) =>
-            <SocialButton social={social} key={id} style={styles.socialButton} />
-          )}
-        </Dialog>
+      <div>
+        <SignInDialog
+          signUp={true}
+          socials={socials}
+          open={this.props.openConnection}
+          onClose={this.props.closeConnectionModal}
+          onSignIn={this.signIn}
+          onSignUp={this.signUp}
+        />
+        <SignOutDialog
+          open={this.props.openDisconnection}
+          onClose={this.props.closeDisconnectionModal}
+          disconnect={this.disconnect}
+        />
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    open: state.isConnectionOpen,
-    title: state.titleDialog || "default",
+    openConnection: state.isConnectionOpen,
+    openDisconnection: state.isDisconnectionOpen,
   }
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    connection: () => {
-      dispatch(connection);
+    connection: (user) => {
+      dispatch(connection(user));
     },
-    close: () => {
+    closeConnectionModal: () => {
       dispatch(closeConnection);
+    },
+    closeDisconnectionModal: () => {
+      dispatch(closeDisconnection);
+    },
+    disconnect: () => {
+      dispatch(disconnection);
     }
   }
 };

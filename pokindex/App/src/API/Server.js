@@ -16,14 +16,14 @@ class Server {
       .then(this._parseJSON);
   };
   
-  getLikes(pokemonName) {
-    return fetch('/like/'+pokemonName, {accept: 'application/json'})
+  getLikes(pokemonName, user) {
+    return fetch('/like/'+pokemonName+'/'+user.id_users, {accept: 'application/json'})
       .then(this._checkStatus)
       .then(this._parseJSON);
   }
   
-  setLikes(pokemonName, likes) {
-    fetch('/like/'+pokemonName, {
+  setLikes(pokemonName, likes, user) {
+    fetch('/like/'+pokemonName+'/'+user.id_users, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -33,20 +33,20 @@ class Server {
     });
   }
   
-  getBookmark(pokemonName) {
-    return fetch('/bookmark/'+pokemonName, {accept: 'application/json'})
+  getBookmark(pokemonName, user) {
+    return fetch('/bookmark/'+pokemonName+'/'+user.id_users, {accept: 'application/json'})
       .then(this._checkStatus)
       .then(this._parseJSON);
   }
   
-  getBookmarks() {
-    return fetch('/bookmarks/', {accept: 'application/json'})
+  getBookmarks(user) {
+    return fetch('/bookmarks/'+user.id_users, {accept: 'application/json'})
       .then(this._checkStatus)
       .then(this._parseJSON);
   }
   
-  setBookmark(pokemonName, bookmark) {
-    fetch('/bookmark/'+pokemonName, {
+  setBookmark(pokemonName, bookmark, user) {
+    fetch('/bookmark/'+pokemonName+'/'+user.id_users, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -54,6 +54,38 @@ class Server {
       method: 'POST',
       body: JSON.stringify(bookmark),
     });
+  }
+  
+  signIn(logs) {
+    const login = logs.signText;
+    const password = logs.pwdText;
+    
+    return fetch('/signIn/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({login: login, password:password}),
+    })
+    .then(this._checkStatus)
+    .then(this._parseJSON);
+  }
+  
+  signUp(logs) {
+    const login = logs.signText;
+    const password = logs.pwdText;
+  
+    return fetch('/signUp/', {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({login: login, password:password}),
+    })
+      .then(this._checkStatus)
+      .then(this._parseJSON);
   }
   
   _checkStatus = (response) => {

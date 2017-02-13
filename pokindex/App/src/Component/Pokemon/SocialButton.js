@@ -10,7 +10,8 @@ import IconButton from 'material-ui/IconButton';
 
 import server  from '../../API/Server';
 import {changeEventBarMessage, openEventBar,
-  addPokemonToBookmark,removePokemonFromBookmark} from '../../API/Store/Actions'
+  addPokemonToBookmark,removePokemonFromBookmark,
+  openConnection} from '../../API/Store/Actions'
 
 import {red600,green400} from 'material-ui/styles/colors';
 import styles from '../../API/Styling/Styles';
@@ -25,16 +26,19 @@ class SocialButton extends PureComponent {
     }
   }
   
-  componentWillMount() {
-    server.getLikes(this.props.pokemon.name).then(likes => {
-      this.setState({like:likes.like, dislike:likes.dislike});
-    });
+  componentWillReceiveProps(newProps) {
+    if(newProps.user !== null)
+      server.getLikes(newProps.pokemon.name, newProps.user).then(likes => {
+        this.setState({like:likes.like, dislike:likes.dislike});
+      });
+    else
+      this.setState({like:false, dislike:false});
   }
   
   _updateLikes = (like, dislike) => {
     const newLikes = {like:like, dislike:dislike};
     this.setState({like:like, dislike:dislike});
-    server.setLikes(this.props.pokemon.name, newLikes);
+    server.setLikes(this.props.pokemon.name, newLikes, this.props.user);
     
     //We pop specific message for each case
     if(newLikes.like)
@@ -42,20 +46,21 @@ class SocialButton extends PureComponent {
     else if(newLikes.dislike)
       this.props.popMessage("You now dislike "+this.props.pokemon.name);
     else
-      this.props.popMessage("You dont care anymore about "+this.props.pokemon.name);
+      this.props.popMessage("You dont care anymore about "
+        +this.props.pokemon.name);
   };
   
   _updateBookmark = () => {
     const newBookmark = !this.props.bookmark;
-    server.setBookmark(this.props.pokemon.name, {bookmark: newBookmark});
-    
+    server.setBookmark(this.props.pokemon.name, {bookmark: newBookmark}, this.props.user);
+ 
     //Comfirmation message and modification of the store
     if(newBookmark) {
-      this.props.addPokemonToBookMark(this.props.pokemon);
+      this.props.addPokemonToBookMark(this.props.pokemon, this.props.user);
       this.props.popMessage("You have bookmarked " + this.props.pokemon.name);
     }
     else {
-      this.props.removePokemonFromBookMark(this.props.pokemon);
+      this.props.removePokemonFromBookMark(this.props.pokemon, this.props.user);
       this.props.popMessage("Your bookmark was remove");
     }
   };
@@ -65,7 +70,9 @@ class SocialButton extends PureComponent {
       <Row>
         <Column>
           <IconButton tooltip="Like" iconStyle={styles.largeIcon}
-            onClick={() => this._updateLikes(!this.state.like, false)}>
+            onClick={() => this.props.isConnected ?
+              this._updateLikes(!this.state.like, false) :
+              this.props.openConnection()}>
             <FontIcon className="material-icons"
               color={this.state.like ? green400 : red600}>
               thumb_up
@@ -74,7 +81,10 @@ class SocialButton extends PureComponent {
         </Column>
         <Column>
           <IconButton tooltip="Dislike" iconStyle={styles.largeIcon}
-            onClick={() => this._updateLikes(false,!this.state.dislike)}>
+            onClick={() => this.props.isConnected ?
+              this._updateLikes(false,!this.state.dislike) :
+              this.props.openConnection()
+              }>
             <FontIcon className="material-icons"
               color={this.state.dislike ? green400 : red600}>
               thumb_down
@@ -84,7 +94,8 @@ class SocialButton extends PureComponent {
         <Column>
           <IconButton tooltip="bookmark" iconStyle={styles.largeIcon}>
             <FontIcon className="material-icons"
-                      onClick={this._updateBookmark}
+                      onClick={this.props.isConnected ?
+                        this._updateBookmark : this.props.openConnection}
                       color={this.props.bookmark ? green400 : red600}>
               {this.props.bookmark ? "bookmark" : "bookmark_border"}
               </FontIcon>
@@ -99,7 +110,7 @@ SocialButton.propTypes = {
   pokemon: React.PropTypes.object.isRequired,
 };
 
-const mapStatToProps = (state, ownProps) => {
+const mapStateToProps = (state, ownProps) => {
   
   let pokemonBookmark = false;
   for(let bookmark of state.pokemonBookmarked)
@@ -107,7 +118,9 @@ const mapStatToProps = (state, ownProps) => {
       pokemonBookmark = true;
   
   return {
-    bookmark : pokemonBookmark,
+    bookmark: pokemonBookmark,
+    isConnected: state.isConnected,
+    user: state.user,
   }
 };
 
@@ -122,8 +135,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     removePokemonFromBookMark: (pokemon) => {
       dispatch(removePokemonFromBookmark(pokemon));
+    },
+    openConnection: () => {
+      dispatch(openConnection)
     }
   }
 };
 
-export default connect(mapStatToProps,mapDispatchToProps)(SocialButton);
+export default connect(mapStateToProps,mapDispatchToProps)(SocialButton);

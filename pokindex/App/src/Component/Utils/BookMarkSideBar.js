@@ -12,19 +12,33 @@ import Loading from './Loading';
 
 import server  from '../../API/Server';
 import pokindex  from '../../API/Pokindex';
-import {closeBookmarkBar,addPokemonToBookmark} from '../../API/Store/Actions';
+import {closeBookmarkBar,
+  addPokemonToBookmark,
+  removePokemonFromBookmark} from '../../API/Store/Actions';
 import styles from '../../API/Styling/Styles';
 
 class BookMarkSideBar extends PureComponent {
   
-  componentWillMount() {
-    server.getBookmarks().then(bookmarks => {
-      bookmarks.forEach(pokemonName => {
-        pokindex.getPokemon(pokemonName).then(pokemon => {
-          this.props.addPokemonToBookmark(pokemon);
+  constructor() {
+    super();
+    this.id_users = 0;
+  }
+  
+  componentWillReceiveProps(newProps) {
+    if(newProps.user !== null) {
+      if(newProps.user.id_users !== this.id_users) {
+      this.id_users = newProps.user.id_users;
+      server.getBookmarks(newProps.user).then(bookmarks => {
+        bookmarks.forEach(pokemonName => {
+          pokindex.getPokemon(pokemonName).then(pokemon => {
+            this.props.addPokemonToBookmark(pokemon);
+          });
         });
       });
-    });
+    }}
+    else
+      this.props.bookmarkPokemon.forEach(pokemon =>
+        this.props.removePokemonFromBookMark(pokemon))
   }
   
   render() {
@@ -52,6 +66,7 @@ const mapStateToProps = (state) => {
   return {
     open: state.isBookmarkBarOpen,
     bookmarkPokemon: state.pokemonBookmarked,
+    user: state.user,
   }
 };
 
@@ -63,6 +78,9 @@ const mapDispatchToProps = (dispatch) => {
     addPokemonToBookmark: (pokemon) => {
       dispatch(addPokemonToBookmark(pokemon));
     },
+    removePokemonFromBookMark: (pokemon) => {
+      dispatch(removePokemonFromBookmark(pokemon));
+    }
   }
 };
 
