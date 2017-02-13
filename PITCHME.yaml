@@ -1,2 +1,2 @@
 theme : black
-background-color: #EF5350
+theme-override : PITCHME.css
