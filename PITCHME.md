@@ -10,7 +10,7 @@ Pokindex
 
 #HSLIDE
 
- - <span>NodeJs</span><span class="fragment"> x2</span>
+- <span>NodeJs</span><span class="fragment"> x2</span>
 - React <!-- .element: class="fragment" -->
 - PostgreSQL     <!-- .element: class="fragment" -->
 - Frameworks design <!-- .element: class="fragment" -->
