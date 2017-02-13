@@ -19,9 +19,7 @@ Pokindex
 
 Murfy
 
-#HSLIDE
-
-What I use, What I expect, What I got
+#HSLIDE?image=What_entretien.png
 
 #HSLIDE
 - Grafana <!-- .element: class="fragment" -->
