@@ -1,5 +1,5 @@
 #HSLIDE
-###J'avais 6 ans
+###6 ans
 
 #HSLIDE?image=http://www.pokepedia.fr/images/thumb/b/b6/Pok%C3%A9mon_Jaune_Recto.png/200px-Pok%C3%A9mon_Jaune_Recto.png
 
